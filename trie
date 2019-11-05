@@ -139,43 +139,8 @@
   	{
 			$string = str_replace('.', '', $string);
 			return $string;		
-		}
-
-    /**
-     * @method mixed returns all domain hacks
-     * @param string $input the text string to be searched
-     */	
-	function get_hacks($input) {
-		$results = array();
-		$string = $this->filter($input);
-		$pos = $this->match($string);  	
-		for ($i=0; $i<count($pos); $i++)
-		{
-		 	// second level domain, e.g. 'wikipedia'
-			$sld = '';
-			if (0 < $pos[$i][0])
-			{
-				$sld .= substr($string, 0, $pos[$i][0]);
-			}
-			
-			// top level domain, e.g. org
-			$tld =  substr($string, $pos[$i][0], $pos[$i][1]-$pos[$i][0]+1); 
-		
-			$path = '';
-			if ($pos[$i][1]+1 < strlen($string))
-			{
-				$path .= substr($string, $pos[$i][1]+1) . '/';
-			}
-			
-			if($sld != '')
-			{
-			  $results[] = array("domain" => $sld . '.' . $tld . '/' . $path, "sld" => $sld, "tld" => $tld);  
-			} else {
-			  $results[] = array("domain" => '*.' . $tld . '/' . $path, "sld" => '*',"tld" => $tld); 
-			}
-		}
-		return $results;			
 	}
+
     
     /**
      * @method returns the depth of this node
